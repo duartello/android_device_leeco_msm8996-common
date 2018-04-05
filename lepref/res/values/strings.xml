@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2015 The CyanogenMod Project
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+          http://www.apache.org/licenses/LICENSE-2.0
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <string name="lepref_title">Leeco Extras</string>
+ 
+    <!-- Battery -->
+    <string name="battery_settings_title">Battery</string>
+    <string name="qc_title">Quick Charge</string>
+    <string name="qc_summary">Enable/disable quick charge settings</string>
+
+    <!-- Camera -->
+    <string name="camera_pref_title">Camera</string>
+    <string name="hal3_title">Camera 2 API</string>
+    <string name="hal3_summary">Enable/disable API2 mode for camera</string>
+
+    <string name="camera_focus_fix_title">Autofocus Fix</string>
+    <string name="camera_focus_fix_summary">For devices with autofocus problem</string>
+
+    <!-- Misc -->
+
+    <string name="misc_settings_title">Misc</string>
+    <string name="proximity_off_title">Turn off by proximity sensor</string>
+    <string name="proximity_off_summary">Turn off by proximity sensor</string>
+    <string name="proximity_on_title">Turn on by proximity sensor</string>
+    <string name="proximity_on_summary">Turn on by proximity sensor</string>
+    <string name="proximity_bon_title">Turn on by proximity gesture</string>
+    <string name="proximity_bon_summary">Turn on by proximity gesture</string>
+    <string name="proximity_boff_title">Turn off by proximity gesture</string>
+    <string name="proximity_boff_summary">Turn off by proximity gesture</string>
+    <string name="on_after_call_title">Turn on after call</string>
+    <string name="on_after_call_summary">Turn on after call</string>
+    <string name="lock_incall_title">Lock while in call</string>
+    <string name="lock_incall_summary">Lock the phone while in call</string>
+
+    <string name="deep_idle_title">Aggressive Idle Mode</string>
+    <string name="deep_idle_summary">Deep Idle immediately after screen off</string>
+
+    <string name="free_net_title">Unrestricted Network</string>
+    <string name="free_net_summary">Do not restrict network access while Idle. Could increase battery drain.</string>
+
+    <string name="krnl_wl_block_title">Kernel wakelock blocker</string>
+    <string name="krnl_wl_block_summary">Enable kernel wakelock blocker</string>
+
+    <string name="krnl_wl_qcom_rx_title">Block QCOM RX wakelock</string>
+    <string name="krnl_wl_qcom_rx_summary">Block QCOM RX wakelock</string>
+
+    <string name="stop_svc_title">Stop services</string>
+    <string name="stop_svc_summary">Force stop disabled background services</string>
+
+    <string name="cpuidle_ds_title">Cpuidle: Use deepest state</string>
+    <string name="cpuidle_ds_summary">Ignore governor assumption and always use deepest idle state</string>
+
+    <string name="reader_mode_title">Reader Mode</string>
+    <string name="reader_mode_summary">Debug. Could be very laggy!</string>
+
+    <string name="hide_gms_title">Do not hide Idle from GMS</string>
+    <string name="hide_gms_summary">Could break some notifications while idle</string>
+
+    <string name="force_gms_title">Force Idle for GMS</string>
+    <string name="force_gms_summary">Could break some GMS services</string>
+
+    <string name="hall_sensor_title">Hall Sensor</string>
+    <string name="hall_sensor_summary">Enable hall sensor service</string>
+
+    <!-- Powersave -->
+    <string name="powersave_settings_title">Power Save</string>
+
+    <!-- GPS throttle -->
+    <string name="gpsthrottle_title">GPS Throttle</string>
+    <string name="gpsthrottle_summary">Throttle GPS for ALL apps in background</string>
+
+    <string name="ims_enabled_title">Enable IMS services</string>
+    <string name="ims_enabled_summary">Enable IMS services</string>
+
+
+    <!-- Batery whitelist -->
+    <string name="prefs_battery_saver_title">Whitelist</string>
+    <string name="prefs_battery_saver_summary">Device Whitelist</string>
+
+    <!-- App ops -->
+    <string name="prefs_app_options_title">App Options</string>
+    <string name="prefs_app_options_summary">App Options</string>
+
+
+	<!-- AKT Profiles -->
+    <string name="akt_profile_title">AKT Profile</string>
+    <string name="akt_title">AKT Profile</string>
+    <string name="akt_summary">Choose your power saver profile</string>
+    <string name="akt_dialogTitle">Choose your power saver profile</string>
+	
+</resources>

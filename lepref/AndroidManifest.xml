@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.omnirom.device"
+    android:versionCode="1"
+    android:versionName="1.0"
+    android:sharedUserId="android.uid.system">
+
+    <!-- package="com.cyanogenmod.settings.lepref" -->
+
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" />
+
+    <uses-sdk
+        android:minSdkVersion="21"
+        android:targetSdkVersion="21"/>
+
+    <application
+        android:label="LePref"
+        android:defaultToDeviceProtectedStorage="true"
+        android:directBootAware="true"
+        android:theme="@android:style/Theme.DeviceDefault.Settings">
+
+<!--
+        android:persistent="true"
+
+        <receiver android:name="com.cyanogenmod.settings.lepref.BootCompletedReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+-->
+
+
+            <!-- android:name=".LePrefSettings"
+            android:theme="@style/Theme.DeviceSettings"            
+            android:icon="@drawable/ic_launcher_devicesettings" -->
+
+        <activity
+
+            android:name="org.omnirom.device.DeviceSettings"
+            android:label="@string/lepref_title"
+            android:theme="@android:style/Theme.Material.Settings">
+
+            <intent-filter>
+                <action android:name="com.android.settings.action.EXTRA_SETTINGS" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <meta-data
+                android:name="com.android.settings.category"
+                android:value="com.android.settings.category.device" />
+            <meta-data
+                android:name="com.android.settings.icon"
+                android:resource="@drawable/ic_settings_lepref" />
+        </activity>
+
+    </application>
+</manifest>

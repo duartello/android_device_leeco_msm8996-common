@@ -84,6 +84,9 @@ PRODUCT_PACKAGES += \
     android.hardware.audio@2.0-impl \
     android.hardware.audio@2.0-service \
     android.hardware.audio.effect@2.0-impl \
+    android.hardware.audio.effect@2.0-service \
+    android.hardware.soundtrigger@2.0-impl \
+    android.hardware.soundtrigger@2.0-service \
     audiod \
     audio.a2dp.default \
     audio.primary.msm8996 \
@@ -198,7 +201,7 @@ PRODUCT_PACKAGES += \
 
 # Doze mode
 PRODUCT_PACKAGES += \
-    Doze
+    OneplusThreeDoze
 
 # DRM
 PRODUCT_PACKAGES += \
@@ -301,7 +304,11 @@ PRODUCT_PACKAGES += \
 
 # Power
 PRODUCT_PACKAGES += \
-    android.hardware.power@1.0-service-qti
+    android.hardware.power@1.0-service-qti \
+    android.hardware.power@1.1-service-qti \
+    android.hardware.power@1.0-impl \
+    android.hardware.power@1.0-service
+
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/powerhint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.xml
@@ -310,6 +317,11 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/privapp-permissions-oem.xml:system/etc/permissions/privapp-permissions-oem.xml \
     $(LOCAL_PATH)/configs/qti_whitelist.xml:system/etc/sysconfigs/qti_whitelist.xml
+
+
+# Qmnips
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/omnips_whitelist.xml:system/etc/sysconfigs/omnips_whitelist.xml
 
 # QMI
 PRODUCT_PACKAGES += \
@@ -323,8 +335,8 @@ PRODUCT_PACKAGES += \
     rcs_service_api.xml
 
 # Recovery
-PRODUCT_PACKAGES += \
-    librecovery_updater_leeco
+#PRODUCT_PACKAGES += \
+#    librecovery_updater_leeco
 
 # RenderScript HAL
 PRODUCT_PACKAGES += \
@@ -357,7 +369,8 @@ PRODUCT_BOOT_JARS += \
 
 # Thermal
 PRODUCT_PACKAGES += \
-    android.hardware.thermal@1.0-impl
+    android.hardware.thermal@1.0-impl \
+    android.hardware.thermal@1.0-service
 
 # TextClassifier smart selection model files
 PRODUCT_PACKAGES += \
@@ -370,7 +383,8 @@ PRODUCT_PACKAGES += \
 
 # Vibrator
 PRODUCT_PACKAGES += \
-    android.hardware.vibrator@1.0-impl
+    android.hardware.vibrator@1.0-impl \
+    android.hardware.vibrator@1.0-service
 
 # VNDK-SP:
 PRODUCT_PACKAGES += \
@@ -391,6 +405,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     ipacm \
     IPACM_cfg.xml
+
+# LePref settigs modules
+PRODUCT_PACKAGES += \
+    LePref
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \

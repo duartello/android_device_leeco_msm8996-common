@@ -60,10 +60,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Bluetooth
 PRODUCT_PROPERTY_OVERRIDES += \
-    bt.max.hfpclient.connections=1 \
+    bt.max.hfpclient.connections=2 \
     qcom.bluetooth.soc=rome \
     ro.bluetooth.wipower=true \
-    ro.bluetooth.emb_wp_mode=true
+    ro.bluetooth.emb_wp_mode=true \
+    persist.bt.enableAptXHD=true 
 
 # System property for cabl
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -225,3 +226,23 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.radio.VT_HYBRID_ENABLE=1 \
     persist.dbg.wfc_avail_ovr=1
+
+
+# OmniPS specific tweaks
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.pm.krnl_wl_block=1
+
+# dex2oat
+PRODUCT_PROPERTY_OVERRIDES += \
+    pm.dexopt.install=speed-profile \
+    pm.dexopt.bg-dexopt=speed-profile \
+    pm.dexopt.ab-ota=verify \
+    pm.dexopt.inactive=speed-profile \
+    pm.dexopt.boot=quicken \
+    pm.dexopt.first-boot=speed-profile \
+    dalvik.vm.dex2oat-very-large=104857600 \
+    dalvik.vm.dex2oat-threads=20 \
+    dalvik.vm.boot-dex2oat-threads=40 \
+    dalvik.vm.dex2oat-filter=speed-profile
+
+

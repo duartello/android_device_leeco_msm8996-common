@@ -94,6 +94,14 @@ BOARD_USES_SRS_TRUEMEDIA := true
 USE_CUSTOM_AUDIO_POLICY := 1
 USE_XML_AUDIO_POLICY_CONF := 1
 
+
+BOARD_GLOBAL_CFLAGS += -DBATTERY_REAL_INFO
+
+TARGET_QCOM_AUDIO_VARIANT := caf-msm8996-los
+TARGET_QCOM_MEDIA_VARIANT := caf-msm8996-los
+TARGET_QCOM_DISPLAY_VARIANT := caf-msm8996
+TARGET_QCOM_BLUETOOTH_VARIANT := caf-msm8996
+
 # Bionic
 TARGET_LD_SHIM_LIBS := /system/vendor/lib/libmmcamera_ppeiscore.so|libshims_camera.so:/system/bin/mm-qcamera-daemon|libshims_qcamera-daemon.so
 
@@ -137,7 +145,7 @@ TARGET_USES_INTERACTION_BOOST := true
 BOARD_USES_QCNE := true
 
 # Crypto
-TARGET_HW_DISK_ENCRYPTION := true
+TARGET_HW_DISK_ENCRYPTION := false
 TARGET_KEYMASTER_WAIT_FOR_QSEE := true
 
 # Display
@@ -215,7 +223,7 @@ WIFI_DRIVER_FW_PATH_P2P := "p2p"
 WPA_SUPPLICANT_VERSION := VER_0_8_X
 
 # Recovery
-TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_leeco
+#TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_leeco
 
 #RECOVERY_VARIANT := twrp
 BOARD_HAS_LARGE_FILESYSTEM := true
@@ -242,7 +250,7 @@ TARGET_RECOVERY_FSTAB := $(PLATFORM_PATH)/rootdir/recovery/fstab.qcom
 endif
 
 # SELinux
-include device/qcom/sepolicy/sepolicy.mk
-BOARD_SEPOLICY_DIRS += $(PLATFORM_PATH)/sepolicy
+#include device/qcom/sepolicy/sepolicy.mk
+#BOARD_SEPOLICY_DIRS += $(PLATFORM_PATH)/sepolicy
 
 -include vendor/leeco/msm8996-common/BoardConfigVendor.mk
