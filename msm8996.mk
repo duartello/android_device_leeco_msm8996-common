@@ -316,12 +316,12 @@ PRODUCT_COPY_FILES += \
 # Qualcomm
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/privapp-permissions-oem.xml:system/etc/permissions/privapp-permissions-oem.xml \
-    $(LOCAL_PATH)/configs/qti_whitelist.xml:system/etc/sysconfigs/qti_whitelist.xml
+    $(LOCAL_PATH)/configs/qti_whitelist.xml:system/etc/sysconfig/qti_whitelist.xml
 
 
 # Qmnips
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/omnips_whitelist.xml:system/etc/sysconfigs/omnips_whitelist.xml
+    $(LOCAL_PATH)/configs/omnips_whitelist.xml:system/etc/sysconfig/omnips_whitelist.xml
 
 # QMI
 PRODUCT_PACKAGES += \
