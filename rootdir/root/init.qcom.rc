@@ -64,7 +64,7 @@ on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
 
-    mount_all fstab.qcom --early
+    mount_all fstab.qcom
 
     # Restorecon
     restorecon_recursive /persist
@@ -84,14 +84,14 @@ on late-fs
     write /sys/block/sda/queue/nr_requests 256
 
     # Start services for bootanim
-    start surfaceflinger
-    start bootanim
-    start hwcomposer-2-1
-    start configstore-hal-1-0
-    start gralloc-2-0
+    #start surfaceflinger
+    #start bootanim
+    #start hwcomposer-2-1
+    #start configstore-hal-1-0
+    #start gralloc-2-0
 
     # Mount RW partitions which need run fsck
-    mount_all fstab.qcom --late
+    #mount_all fstab.qcom --late
 
 on post-fs
     write /dev/ipa 1
@@ -664,6 +664,7 @@ service audiod /vendor/bin/audiod
    user system
    group system
 
+
 service imsqmidaemon /vendor/bin/imsqmidaemon
     class main
     user system
@@ -811,11 +812,11 @@ on property:vold.decrypt=trigger_restart_framework
 on property:persist.env.fastdorm.enabled=true
     setprop persist.radio.data_no_toggle 1
 
-service cnd /vendor/bin/cnd
-    class main
-    socket cnd stream 660 root inet
-    group root
-    writepid /dev/cpuset/system-background/tasks
+#service cnd /vendor/bin/cnd
+#    class main
+#    socket cnd stream 660 root inet
+#    group root
+#    writepid /dev/cpuset/system-background/tasks
 
 service dpmQmiMgr /system/vendor/bin/dpmQmiMgr
     class main
@@ -848,6 +849,7 @@ service start_hci_filter /system/vendor/bin/wcnss_filter
     class late_start
     user bluetooth
     group bluetooth diag system wakelock
+    capabilities BLOCK_SUSPEND
 #    seclabel u:r:wcnss_filter:s0
     disabled
 
@@ -867,7 +869,8 @@ on property:wc_transport.start_root=false
 service hci_filter_root /system/bin/wcnss_filter
     class late_start
     user bluetooth
-    group bluetooth oem_2901 system
+    group bluetooth oem_2901 system wakelock
+    capabilities BLOCK_SUSPEND
 #    seclabel u:r:wcnss_filter:s0
     disabled
 
