@@ -37,14 +37,19 @@ on boot
     chmod 0666 /sys/devices/soc/soc:qcom,camera-flash/flashled2
 
 
-service imsqmidaemon /vendor/bin/imsqmidaemon
-    class main
-    user system
-    socket ims_qmid stream 0660 system radio
-    group radio log diag
-    writepid /dev/cpuset/system-background/tasks
-    disabled
+    # Save previous kernel logs
+    mkdir  /data/media/0/omnips 0777 media_rw media_rw
+    mkdir  /data/media/0/omnips/logs 0777 media_rw media_rw
+    mkdir  /data/media/0/omnips/logs/kernel 0777 media_rw media_rw
+    mkdir  /data/media/0/omnips/logs/system 0777 media_rw media_rw
+    copy /sys/fs/pstore/console-ramoops /data/media/0/omnips/logs/kernel/kernel-${ro.boottime.init}
+    exec -- /system/bin/logcat V -b all -L -f /data/media/0/omnips/logs/system/logcat_last-${ro.boottime.init}.log
 
+service logcat_bg /system/bin/logcat V -b all -f /data/media/0/omnips/logs/system/logcat_current-${ro.boottime.init}.log
+    class main
+    user root
+    group root
+    disabled
 
 on property:persist.ims.enabled=1
     start imsqmidaemon
@@ -54,14 +59,6 @@ on property:persist.ims.enabled=0
     stop ims_rtp_daemon
     stop imsdatadaemon
     stop imsqmidaemon
-
-service imsdatadaemon /vendor/bin/imsdatadaemon
-    class main
-    user system
-    socket ims_datad stream 0660 system radio
-    group system wifi radio inet log diag
-    writepid /dev/cpuset/system-background/tasks
-    disabled
 
 on property:vendor.ims.QMI_DAEMON_STATUS=0
     stop imsdatadaemon
@@ -95,6 +92,13 @@ on property:persist.camera.focus_fix=1
 
 on property:persist.camera.focus_fix=0
     write /sys/module/msm_actuator/parameters/use_focus_fix 0
+
+# kthreads scheduling policy
+on property:persist.pm.kthreads=0
+    write /sys/module/core/parameters/kthreads_pm_level 0
+
+on property:persist.pm.kthreads=1
+    write /sys/module/core/parameters/kthreads_pm_level 1
 
 # adb over network
 on property:service.adb.tcp.port=5555
