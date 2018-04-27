@@ -73,6 +73,8 @@ public class DeviceSettings extends PreferenceActivity implements OnPreferenceCh
 
     private static final String SYSTEM_PROPERTY_PM_STOP_SVC = "persist.pm.stop_svc";
 
+    private static final String SYSTEM_PROPERTY_PM_KTHREADS = "persist.pm.kthreads";
+
 	private SwitchPreference mEnableQC;
 	private SwitchPreference mEnableHAL3;
 	private SwitchPreference mEnableGPSThrottle;
@@ -102,6 +104,7 @@ public class DeviceSettings extends PreferenceActivity implements OnPreferenceCh
 	private SwitchPreference mKrnlWlBlock;
 	private SwitchPreference mKrnlWlQcomRX;
 	private SwitchPreference mStopSvc;
+	private SwitchPreference mKThreads;
 	
     private Context mContext;
     private SharedPreferences mPreferences;
@@ -239,6 +242,11 @@ public class DeviceSettings extends PreferenceActivity implements OnPreferenceCh
             mStopSvc.setOnPreferenceChangeListener(this);
         }
 
+        mKThreads = (SwitchPreference) findPreference(SYSTEM_PROPERTY_PM_KTHREADS);
+        if( mKThreads != null ) {
+            mKThreads.setChecked(SystemProperties.getBoolean(SYSTEM_PROPERTY_PM_KTHREADS, false));
+            mKThreads.setOnPreferenceChangeListener(this);
+        }
 
 
         /*

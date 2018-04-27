@@ -66,6 +66,9 @@
     <string name="cpuidle_ds_title">Cpuidle: Использовать глубокий сон</string>
     <string name="cpuidle_ds_summary">Игнорировать значение говернора и всегда использовать самый глубокий уровень сна</string>
 
+    <string name="kthreads_title">Потоки ядра на LITTLE ядрах</string>
+    <string name="kthreads_summary">Планировать потоки ядра только на LITTLE ядрах</string>
+
     <string name="reader_mode_title">Режим чтения</string>
     <string name="reader_mode_summary">Отладка. Могут быть сильные тормоза!</string>
 

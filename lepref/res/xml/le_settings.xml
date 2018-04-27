@@ -145,6 +145,12 @@
             android:summary="@string/cpuidle_ds_summary" />
 
         <SwitchPreference
+            android:key="persist.pm.kthreads"
+            android:defaultValue="false"
+            android:title="@string/kthreads_title"
+            android:summary="@string/kthreads_summary" />
+
+        <SwitchPreference
             android:key="persist.pm.hide_gms"
             android:defaultValue="false"
             android:title="@string/hide_gms_title"
