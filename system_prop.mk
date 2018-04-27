@@ -115,10 +115,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.demo.hdmirotationlock=false \
     persist.debug.wfd.enable=1 \
     persist.sys.wfd.virtual=0 \
-    sdm.perf_hint_window=50 \
     persist.hwc.enable_vds=1 \
     sdm.debug.disable_rotator_split=1 \
     ro.persist.qcapb=1
+
+#    sdm.perf_hint_window=50 \
 
 # OpenGLES
 PRODUCT_PROPERTY_OVERRIDES += \
