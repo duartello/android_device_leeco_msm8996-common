@@ -54,33 +54,42 @@ on init-cpus
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "interactive"
     write /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_sched_load 1
     write /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_migration_notif 1
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay 19000
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load 90
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_rate 20000
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq 960000
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay "19000 480000:20000 960000:80000"
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load 98
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_rate 50000
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_slack 80000
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq 480000
     write /sys/devices/system/cpu/cpu0/cpufreq/interactive/io_is_busy 1
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads 80
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads "80 460000:85 600000:85 672000:85 787000:95 864000:150 960000:150 1248000:150 1440000:150"
     write /sys/devices/system/cpu/cpu0/cpufreq/interactive/min_sample_time 19000
     write /sys/devices/system/cpu/cpu0/cpufreq/interactive/max_freq_hysteresis 79000
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 307200
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/ignore_hispeed_on_notif 0
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/ignore_hispeed_on_notif 1
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/fast_ramp_down 1
     write /sys/devices/system/cpu/cpu0/cpufreq/interactive/enable_prediction 1
 
      # Configure governor settings for big cluster
     write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor "interactive"
     write /sys/devices/system/cpu/cpu2/cpufreq/interactive/use_sched_load 1
     write /sys/devices/system/cpu/cpu2/cpufreq/interactive/use_migration_notif 1
-    write /sys/devices/system/cpu/cpu2/cpufreq/interactive/above_hispeed_delay "19000 1400000:39000 1700000:39000 2100000:79000"
-    write /sys/devices/system/cpu/cpu2/cpufreq/interactive/go_hispeed_load 90
-    write /sys/devices/system/cpu/cpu2/cpufreq/interactive/timer_rate 20000
-    write /sys/devices/system/cpu/cpu2/cpufreq/interactive/hispeed_freq 1248000
+    write /sys/devices/system/cpu/cpu2/cpufreq/interactive/above_hispeed_delay 250000
+    write /sys/devices/system/cpu/cpu2/cpufreq/interactive/boost 0
+    write /sys/devices/system/cpu/cpu2/cpufreq/interactive/go_hispeed_load 99
+    write /sys/devices/system/cpu/cpu2/cpufreq/interactive/timer_rate 50000
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_slack 160000
+    write /sys/devices/system/cpu/cpu2/cpufreq/interactive/hispeed_freq 960000
     write /sys/devices/system/cpu/cpu2/cpufreq/interactive/io_is_busy 1
-    write /sys/devices/system/cpu/cpu2/cpufreq/interactive/target_loads "85 1500000:90 1800000:90 2100000:95"
+    write /sys/devices/system/cpu/cpu2/cpufreq/interactive/target_loads "250 480000:250 633000:250 768000:250 864000:250 960000:150 1248000:100 1344000:100 1440000:95 1536000:95 1632000:95 1689000:95 1824000:95"
     write /sys/devices/system/cpu/cpu2/cpufreq/interactive/min_sample_time 19000
     write /sys/devices/system/cpu/cpu2/cpufreq/interactive/max_freq_hysteresis 39000
     write /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq 307200
-    write /sys/devices/system/cpu/cpu2/cpufreq/interactive/ignore_hispeed_on_notif 0
+    write /sys/devices/system/cpu/cpu2/cpufreq/interactive/ignore_hispeed_on_notif 1
+    write /sys/devices/system/cpu/cpu2/cpufreq/interactive/fast_ramp_down 1
     write /sys/devices/system/cpu/cpu2/cpufreq/interactive/enable_prediction 1
+
+#    write /sys/devices/system/cpu/cpu2/cpufreq/interactive/target_loads "90 480000:90 633000:90 768000:90 864000:90 960000:95 1248000:98 1344000:99 1440000:99 1536000:99 1632000:99 1689000:99 1824000:99"
+#    write /sys/devices/system/cpu/cpu2/cpufreq/interactive/target_loads "85 800000:89 1000000:92 1500000:95 1800000:97 2100000:99"
+
 
     # Re-enable thermal and BCL hotplug
     write /sys/module/msm_thermal/core_control/enabled 1
@@ -90,17 +99,17 @@ on init-cpus
     write /sys/devices/soc/soc:qcom,bcl/mode "enable"
 
     # Input boost configuration
-    write /sys/module/cpu_boost/parameters/input_boost_freq "0:1324800 2:1324800"
+    write /sys/module/cpu_boost/parameters/input_boost_freq "0:960000 2:960000"
     write /sys/module/cpu_boost/parameters/input_boost_ms 40
 
     # Setting b.L scheduler parameters
-    write /proc/sys/kernel/sched_boost 0
+    write /proc/sys/kernel/sched_boost 1
     write /proc/sys/kernel/sched_migration_fixup 1
     write /proc/sys/kernel/sched_upmigrate 95
     write /proc/sys/kernel/sched_downmigrate 90
     write /proc/sys/kernel/sched_freq_inc_notify 400000
     write /proc/sys/kernel/sched_freq_dec_notify 400000
-    write /proc/sys/kernel/sched_spill_nr_run 3
+    write /proc/sys/kernel/sched_spill_nr_run 10
     write /proc/sys/kernel/sched_init_task_load 100
 
     # Enable bus-dcvs
@@ -120,9 +129,9 @@ on init-cpus
     write /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/idle_mbps 1600
 
     write /sys/class/devfreq/soc:qcom,memlat-cpu0/governor "mem_latency"
-    write /sys/class/devfreq/soc:qcom,memlat-cpu0/polling_interval 10
+    write /sys/class/devfreq/soc:qcom,memlat-cpu0/polling_interval 100
     write /sys/class/devfreq/soc:qcom,memlat-cpu2/governor "mem_latency"
-    write /sys/class/devfreq/soc:qcom,memlat-cpu2/polling_interval 10
+    write /sys/class/devfreq/soc:qcom,memlat-cpu2/polling_interval 100
     write /sys/class/devfreq/soc:qcom,mincpubw/governor "cpufreq"
 
 on class_start:late_start
@@ -142,8 +151,8 @@ on property:dev.bootcomplete=1
     write /dev/cpuset/top-app/cpus 0-3
     write /dev/cpuset/foreground/boost/cpus 0-3
     write /dev/cpuset/foreground/cpus 0-2
-    write /dev/cpuset/background/cpus 0
-    write /dev/cpuset/system-background/cpus 0-1
+    write /dev/cpuset/background/cpus 0-1
+    write /dev/cpuset/system-background/cpus 0
 
     # VM
     write /proc/sys/vm/dirty_background_ratio 20
