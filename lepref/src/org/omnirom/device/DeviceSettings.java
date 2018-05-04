@@ -75,6 +75,10 @@ public class DeviceSettings extends PreferenceActivity implements OnPreferenceCh
 
     private static final String SYSTEM_PROPERTY_PM_KTHREADS = "persist.pm.kthreads";
 
+    private static final String SYSTEM_PROPERTY_FORCE_EFFECTS = "persist.audio.force_effects";
+    private static final String SYSTEM_PROPERTY_EFFECTS_FOR_ALL_STREAMS = "persist.audio.effects_all";
+    private static final String SYSTEM_PROPERTY_EFFECTS_GLOBAL = "persist.audio.effects_global";
+
 	private SwitchPreference mEnableQC;
 	private SwitchPreference mEnableHAL3;
 	private SwitchPreference mEnableGPSThrottle;
@@ -105,6 +109,11 @@ public class DeviceSettings extends PreferenceActivity implements OnPreferenceCh
 	private SwitchPreference mKrnlWlQcomRX;
 	private SwitchPreference mStopSvc;
 	private SwitchPreference mKThreads;
+
+	private SwitchPreference mForceEffects;
+	private SwitchPreference mForceEffectsForAllStreams;
+	private SwitchPreference mForceEffectsGlobal;
+
 	
     private Context mContext;
     private SharedPreferences mPreferences;
@@ -248,6 +257,23 @@ public class DeviceSettings extends PreferenceActivity implements OnPreferenceCh
             mKThreads.setOnPreferenceChangeListener(this);
         }
 
+        mForceEffects = (SwitchPreference) findPreference(SYSTEM_PROPERTY_FORCE_EFFECTS);
+        if( mForceEffects != null ) {
+            mForceEffects.setChecked(SystemProperties.getBoolean(SYSTEM_PROPERTY_FORCE_EFFECTS, false));
+            mForceEffects.setOnPreferenceChangeListener(this);
+        }
+
+        mForceEffectsForAllStreams = (SwitchPreference) findPreference(SYSTEM_PROPERTY_EFFECTS_FOR_ALL_STREAMS);
+        if( mForceEffectsForAllStreams != null ) {
+            mForceEffectsForAllStreams.setChecked(SystemProperties.getBoolean(SYSTEM_PROPERTY_EFFECTS_FOR_ALL_STREAMS, false));
+            mForceEffectsForAllStreams.setOnPreferenceChangeListener(this);
+        }
+
+        mForceEffectsGlobal = (SwitchPreference) findPreference(SYSTEM_PROPERTY_EFFECTS_GLOBAL);
+        if( mForceEffectsGlobal != null ) {
+            mForceEffectsGlobal.setChecked(SystemProperties.getBoolean(SYSTEM_PROPERTY_EFFECTS_GLOBAL, false));
+            mForceEffectsGlobal.setOnPreferenceChangeListener(this);
+        }
 
         /*
         mAKT = (ListPreference) findPreference(AKT_KEY);

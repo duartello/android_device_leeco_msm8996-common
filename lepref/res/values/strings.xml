@@ -88,6 +88,18 @@
     <string name="ims_enabled_summary">Enable IMS services</string>
 
 
+    <!-- Audio settings -->
+    <string name="audio_settings_title">Audio settings</string>
+
+    <string name="aduio_force_effects_title">Force DSP effects</string>
+    <string name="aduio_force_effects_summary">Force use of DSP effects for all apps</string>
+
+    <string name="aduio_force_effects_all_title">Use DSP for any stream</string>
+    <string name="aduio_force_effects_all_summary">Use DSP for all stream types (by default only Music)</string>
+
+    <string name="aduio_force_effects_global_title">Global settings</string>
+    <string name="aduio_force_effects_global_summary">Use the same DSP settings for all apps</string>
+
     <!-- Batery whitelist -->
     <string name="prefs_battery_saver_title">Whitelist</string>
     <string name="prefs_battery_saver_summary">Device Whitelist</string>

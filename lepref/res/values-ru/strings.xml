@@ -85,6 +85,18 @@
     <string name="ims_enabled_summary">Разрешить IMS сервисы</string>
 
 
+    <!-- Audio settings -->
+    <string name="audio_settings_title">Настройки звука</string>
+
+    <string name="aduio_force_effects_title">Форсировать DSP эффекты</string>
+    <string name="aduio_force_effects_summary">Использовать DSP эффекты для всех приложений</string>
+
+    <string name="aduio_force_effects_all_title">DSP для всех типов потоков</string>
+    <string name="aduio_force_effects_all_summary">Использовать DSP эффекты для всех типов потоков (по умолчанию только для Музыки)</string>
+
+    <string name="aduio_force_effects_global_title">Единые настройки</string>
+    <string name="aduio_force_effects_global_summary">Использовать единые настройки DSP для всех приложений</string>
+
     <!-- AKT Profiles -->
     <string name="akt_profile_title">AKT профили</string>
     <string name="akt_title">AKT профили</string>

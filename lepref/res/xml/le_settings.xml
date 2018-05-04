@@ -172,6 +172,31 @@
 
     </PreferenceCategory>
 
+
+    <PreferenceCategory
+        android:key="audio_settings"
+        android:title="@string/audio_settings_title" >
+
+        <SwitchPreference
+            android:key="persist.audio.force_effects"
+            android:defaultValue="false"
+            android:title="@string/aduio_force_effects_title"
+            android:summary="@string/aduio_force_effects_summary" />
+
+        <SwitchPreference
+            android:key="persist.audio.effects_all"
+            android:defaultValue="false"
+            android:title="@string/aduio_force_effects_all_title"
+            android:summary="@string/aduio_force_effects_all_summary" />
+
+        <!-- SwitchPreference
+            android:key="persist.audio.effects_global"
+            android:defaultValue="false"
+            android:title="@string/aduio_force_effects_global_title"
+            android:summary="@string/aduio_force_effects_global_summary" / -->
+
+    </PreferenceCategory>
+
     <Preference android:title="@string/prefs_battery_saver_title" 
 		    android:summary="@string/prefs_battery_saver_summary">
 	    <intent android:action="android.settings.IGNORE_BATTERY_OPTIMIZATION_SETTINGS"/>
