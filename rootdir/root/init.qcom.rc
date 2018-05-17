@@ -585,7 +585,7 @@ on boot
     write /sys/bus/msm_subsys/devices/subsys5/restart_level "related"
 
 on property:sys.boot_completed=1
-    write /dev/kmsg "Boot completed "
+    write /dev/kmsg "Boot completed"
     # end boot time fs tune
     write /sys/block/sda/queue/read_ahead_kb 512
     write /sys/block/sda/queue/nr_requests 512
@@ -812,16 +812,17 @@ on property:vold.decrypt=trigger_restart_framework
 on property:persist.env.fastdorm.enabled=true
     setprop persist.radio.data_no_toggle 1
 
-#service cnd /vendor/bin/cnd
-#    class main
-#    socket cnd stream 660 root inet
-#    group root
-#    writepid /dev/cpuset/system-background/tasks
+service cnd /vendor/bin/cnd
+    class main
+    socket cnd stream 660 root inet
+    group root wakelock
+    writepid /dev/cpuset/system-background/tasks
 
 service dpmQmiMgr /system/vendor/bin/dpmQmiMgr
     class main
     user system
     group system
+    writepid /dev/cpuset/system-background/tasks
 
 service irsc_util /vendor/bin/irsc_util "/vendor/etc/sec_config"
     class core
@@ -1020,18 +1021,19 @@ service qcom-sh /system/bin/sh /init.qcom.sh
     class late_start
     user root
     oneshot
-#    seclabel u:r:qti_init_shell:s0
+#   seclabel u:r:qti_init_shell:s0
 
 service hvdcp_opti /vendor/bin/hvdcp_opti
     class main
     user root
     group root
-#    seclabel u:r:hvdcp:s0
+#   seclabel u:r:hvdcp:s0
 
 service charger /charger
     class charger
-    group system graphics
-#    seclabel u:r:charger:s0
+    group system graphics log
+    writepid /dev/cpuset/system-background/tasks
+#   seclabel u:r:charger:s0
 
 on charger
     start hvdcp_opti
