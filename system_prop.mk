@@ -56,7 +56,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     vendor.audio.safx.pbe.enabled=true \
     vendor.audio.parser.ip.buffer.size=262144 \
     vendor.audio.dolby.ds2.enabled=false \
-    vendor.audio.dolby.ds2.hardbypass=false
+    vendor.audio.dolby.ds2.hardbypass=false \
+    audio.offload.ignore_setawake=true
 
 # Bluetooth
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -235,15 +236,16 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # dex2oat
 PRODUCT_PROPERTY_OVERRIDES += \
-    pm.dexopt.install=speed-profile \
-    pm.dexopt.bg-dexopt=speed-profile \
+    pm.dexopt.install=everything \
+    pm.dexopt.bg-dexopt=everything \
     pm.dexopt.ab-ota=verify \
-    pm.dexopt.inactive=speed-profile \
-    pm.dexopt.boot=quicken \
-    pm.dexopt.first-boot=speed-profile \
-    dalvik.vm.dex2oat-very-large=104857600 \
+    pm.dexopt.inactive=everything \
+    pm.dexopt.boot=verify \
+    pm.dexopt.first-boot=verify \
+    pm.dexopt.shared=everything \
+    dalvik.vm.dex2oat-very-large=204857600 \
     dalvik.vm.dex2oat-threads=20 \
-    dalvik.vm.boot-dex2oat-threads=40 \
-    dalvik.vm.dex2oat-filter=speed-profile
-
+    dalvik.vm.boot-dex2oat-threads=60 \
+    dalvik.vm.dex2oat-filter=everything \
+    dalvik.vm.image-dex2oat-filter=everything
 
