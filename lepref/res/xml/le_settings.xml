@@ -139,6 +139,12 @@
             android:summary="@string/gpsthrottle_summary" />
 
         <SwitchPreference
+            android:key="persist.ps.gpsthrottle.sys"
+            android:defaultValue="false"
+            android:title="@string/gpsthrottlesys_title"
+            android:summary="@string/gpsthrottlesys_summary" />
+
+        <SwitchPreference
             android:key="persist.pm.cpuidle_ds"
             android:defaultValue="false"
             android:title="@string/cpuidle_ds_title"

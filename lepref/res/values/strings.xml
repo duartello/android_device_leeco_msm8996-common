@@ -84,6 +84,9 @@
     <string name="gpsthrottle_title">GPS Throttle</string>
     <string name="gpsthrottle_summary">Throttle GPS for ALL apps in background</string>
 
+    <string name="gpsthrottlesys_title">System GPS Throttle</string>
+    <string name="gpsthrottlesys_summary">Throttle GPS for system</string>
+
     <string name="ims_enabled_title">Enable IMS services</string>
     <string name="ims_enabled_summary">Enable IMS services</string>
 

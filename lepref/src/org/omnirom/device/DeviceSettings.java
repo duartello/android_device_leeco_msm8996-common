@@ -41,6 +41,8 @@ public class DeviceSettings extends PreferenceActivity implements OnPreferenceCh
 	private static final String HAL3_SYSTEM_PROPERTY = "persist.camera.HAL3.enabled";
 	private static final String GPS_THROTTLE_SYSTEM_PROPERTY = "persist.ps.gpsthrottle";
 
+	private static final String GPS_THROTTLE_SYS_SYSTEM_PROPERTY = "persist.ps.gpsthrottle.sys";
+
     	private static final String SYSTEM_PROPERTY_PM_PROXIMITY_OFF = "persist.pm.proximity_off";
 
     	private static final String SYSTEM_PROPERTY_PM_PROXIMITY_ON = "persist.pm.proximity_on";
@@ -80,8 +82,12 @@ public class DeviceSettings extends PreferenceActivity implements OnPreferenceCh
     private static final String SYSTEM_PROPERTY_EFFECTS_GLOBAL = "persist.audio.effects_global";
 
 	private SwitchPreference mEnableQC;
+
 	private SwitchPreference mEnableHAL3;
+
 	private SwitchPreference mEnableGPSThrottle;
+	private SwitchPreference mEnableGPSThrottleSys;
+
 	private ListPreference mAKT;
 
 	private SwitchPreference mProximityOff;
@@ -142,6 +148,11 @@ public class DeviceSettings extends PreferenceActivity implements OnPreferenceCh
             mEnableGPSThrottle.setOnPreferenceChangeListener(this);
         }
 
+        mEnableGPSThrottleSys = (SwitchPreference) findPreference(GPS_THROTTLE_SYS_SYSTEM_PROPERTY);
+        if( mEnableGPSThrottleSys != null ) {
+            mEnableGPSThrottleSys.setChecked(SystemProperties.getBoolean(GPS_THROTTLE_SYS_SYSTEM_PROPERTY, false));
+            mEnableGPSThrottleSys.setOnPreferenceChangeListener(this);
+        }
 
         mProximityOff = (SwitchPreference) findPreference(SYSTEM_PROPERTY_PM_PROXIMITY_OFF);
         if( mProximityOff != null ) {
