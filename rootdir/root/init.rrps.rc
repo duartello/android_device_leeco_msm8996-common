@@ -37,19 +37,25 @@ on boot
     chmod 0666 /sys/devices/soc/soc:qcom,camera-flash/flashled2
 
 
-    # Save previous kernel logs
-    mkdir  /data/media/0/omnips 0777 media_rw media_rw
-    mkdir  /data/media/0/omnips/logs 0777 media_rw media_rw
-    mkdir  /data/media/0/omnips/logs/kernel 0777 media_rw media_rw
-    mkdir  /data/media/0/omnips/logs/system 0777 media_rw media_rw
-    copy /sys/fs/pstore/console-ramoops /data/media/0/omnips/logs/kernel/kernel-${ro.boottime.init}
-    exec -- /system/bin/logcat V -b all -L -f /data/media/0/omnips/logs/system/logcat_last-${ro.boottime.init}.log
 
-service logcat_bg /system/bin/logcat V -b all -f /data/media/0/omnips/logs/system/logcat_current-${ro.boottime.init}.log
-    class main
-    user root
-    group root
-    disabled
+on property:vendor.leprefs.savelog=1
+    # Save previous kernel logs
+    mkdir  /data/media/0/rrps 0777 media_rw media_rw
+    mkdir  /data/media/0/rrps/logs 0777 media_rw media_rw
+#    mkdir  /data/media/0/rrps/logs/kernel 0777 media_rw media_rw
+#    mkdir  /data/media/0/rrps/logs/system 0777 media_rw media_rw
+    mkdir  /data/media/0/rrps/logs/date-${vendor.lepref.log_suffix} 0777 media_rw media_rw
+    copy /sys/fs/pstore/console-ramoops /data/media/0/rrps/logs/date-${vendor.lepref.log_suffix}/ramoops
+#    copy /dev/kmsg /data/media/0/rrps/logs/date-${vendor.lepref.log_suffix}/dmesg
+    exec -- /system/bin/logcat V -b all -L -f /data/media/0/rrps/logs/date-${vendor.lepref.log_suffix}/logcat_last_reboot.log
+    exec -- /system/bin/logcat V -b all -d -f /data/media/0/rrps/logs/date-${vendor.lepref.log_suffix}/logcat_current.log
+    setprop vendor.leprefs.savelog 0
+
+#service logcat_bg /system/bin/logcat V -b all -f /data/media/0/rrps/logs/system/logcat_current-${ro.runtime.firstboot}.log
+#    class main
+#    user root
+#    group root
+#    disabled
 
 on property:persist.ims.enabled=1
     start imsqmidaemon

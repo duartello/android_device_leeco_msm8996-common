@@ -28,7 +28,7 @@
 import init.qcom.power.rc
 import init.qcom.usb.rc
 import init.device.rc
-import init.omnips.rc
+import init.rrps.rc
 
 on early-init
     mount debugfs debugfs /sys/kernel/debug
