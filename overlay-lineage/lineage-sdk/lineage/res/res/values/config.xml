@@ -38,6 +38,9 @@
          OLED displays and can cause a bit of discoloration. Reinvestigate after tuning -->
     <bool name="config_defaultCABC">false</bool>
 
+    <!-- For high brightness mode -->
+    <integer name="config_outdoorAmbientLux">20000</integer>
+
     <!-- Use default display mode -->
     <integer name="config_defaultLiveDisplayMode">0</integer>
 
@@ -49,9 +52,12 @@
     <string-array name="config_displayModeMappings" translatable="false">
         <item>default:standard</item>
         <item>xianyan:dynamic</item>
-        <item>ziran:photography</item>
-        <item>rouhe:basic</item>
-        <item>movie:cinema</item>
+        <item>cinema:cinema</item>
+        <item>astronomy:astronomy</item>
+        <item>photography:photography</item>
+        <item>basic:basic</item>
+        <item>srgb:srgb</item>
+        <item>dci_p3:dci_p3</item>
     </string-array>
 
     <!-- Should we filter any display modes which are unampped? -->

@@ -14,6 +14,9 @@
 # limitations under the License.
 #
 
+# Vendor kernel headers
+PRODUCT_VENDOR_KERNEL_HEADERS := hardware/qcom/msm8996/kernel-headers
+
 # Overlay
 DEVICE_PACKAGE_OVERLAYS += \
     $(LOCAL_PATH)/overlay \
@@ -196,10 +199,6 @@ PRODUCT_PACKAGES += \
     android.hardware.health@1.0-service
 
 # HIDL
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/manifest.xml:system/vendor/manifest.xml
-
-# HIDL
 PRODUCT_PACKAGES += \
     android.hidl.base@1.0 \
     android.hidl.manager@1.0 \
@@ -207,7 +206,7 @@ PRODUCT_PACKAGES += \
 
 # Doze mode
 PRODUCT_PACKAGES += \
-    OneplusThreeDoze
+    Doze
 
 # DRM
 PRODUCT_PACKAGES += \
@@ -276,7 +275,11 @@ PRODUCT_PACKAGES += \
 
 # LiveDisplay native
 PRODUCT_PACKAGES += \
-    libjni_livedisplay
+    vendor.lineage.livedisplay@1.0-service-sdm \
+    vendor.lineage.livedisplay-V1.0-java
+
+PRODUCT_BOOT_JARS += \
+    vendor.lineage.livedisplay-V1.0-java
 
 # Media
 PRODUCT_COPY_FILES += \
@@ -327,7 +330,7 @@ PRODUCT_COPY_FILES += \
 
 # Qmnips
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/omnips_whitelist.xml:system/etc/sysconfig/omnips_whitelist.xml
+    $(LOCAL_PATH)/configs/rrps_whitelist.xml:system/etc/sysconfig/rrps_whitelist.xml
 
 # QMI
 PRODUCT_PACKAGES += \
@@ -373,22 +376,25 @@ PRODUCT_PACKAGES += \
 PRODUCT_BOOT_JARS += \
     telephony-ext
 
-# Thermal
+# Tetheroffload
 PRODUCT_PACKAGES += \
-    android.hardware.thermal@1.0-impl \
-    android.hardware.thermal@1.0-service
+    ipacm \
+    IPACM_cfg.xml
 
 # TextClassifier smart selection model files
 PRODUCT_PACKAGES += \
     textclassifier.smartselection.bundle1
 
+# Thermal
+PRODUCT_PACKAGES += \
+    android.hardware.thermal@1.0-impl \
+    android.hardware.thermal@1.0-service \
+    thermal.msm8996
+
 # USB
 PRODUCT_PACKAGES += \
     android.hardware.usb@1.0-service \
     com.android.future.usb.accessory
-
-# Vendor kernel headers
-PRODUCT_VENDOR_KERNEL_HEADERS := hardware/qcom/msm8996/kernel-headers
 
 # Vibrator
 PRODUCT_PACKAGES += \
@@ -398,6 +404,12 @@ PRODUCT_PACKAGES += \
 # VNDK-SP:
 PRODUCT_PACKAGES += \
     vndk-sp
+
+# VR
+PRODUCT_PACKAGES += \
+    android.hardware.vr@1.0-impl \
+    android.hardware.vr@1.0-service \
+    vr.msm8996
 
 # Wifi
 PRODUCT_PACKAGES += \
@@ -411,9 +423,6 @@ PRODUCT_PACKAGES += \
     wpa_supplicant \
     wpa_supplicant.conf
 
-PRODUCT_PACKAGES += \
-    ipacm \
-    IPACM_cfg.xml
 
 # LePref settigs modules
 PRODUCT_PACKAGES += \

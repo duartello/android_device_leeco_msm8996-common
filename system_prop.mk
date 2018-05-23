@@ -230,7 +230,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.dbg.wfc_avail_ovr=1
 
 
-# OmniPS specific tweaks
+# RRPS specific tweaks
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.pm.krnl_wl_block=1
 

@@ -19,7 +19,7 @@ PLATFORM_PATH := device/leeco/msm8996-common
 TARGET_SPECIFIC_HEADER_PATH += $(PLATFORM_PATH)/include
 
 BOARD_VENDOR := leeco
-
+ 
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := msm8996
 TARGET_NO_BOOTLOADER := true
@@ -60,8 +60,6 @@ TARGET_COMPILE_WITH_MSM_KERNEL := true
 # QCOM hardware
 BOARD_USES_QCOM_HARDWARE := true
 
-TARGET_USES_QCOM_BSP := true
-TARGET_USERIMAGES_USE_EXT4 := true
 
 # ANT+
 BOARD_ANT_WIRELESS_DEVICE := "qualcomm-uart"
@@ -103,10 +101,10 @@ USE_XML_AUDIO_POLICY_CONF := 1
 
 BOARD_GLOBAL_CFLAGS += -DBATTERY_REAL_INFO
 
-TARGET_QCOM_AUDIO_VARIANT := caf-msm8996-los
-TARGET_QCOM_MEDIA_VARIANT := caf-msm8996-los
-TARGET_QCOM_DISPLAY_VARIANT := caf-msm8996
-TARGET_QCOM_BLUETOOTH_VARIANT := caf-msm8996
+#TARGET_QCOM_AUDIO_VARIANT := caf-msm8996-los
+#TARGET_QCOM_MEDIA_VARIANT := caf-msm8996-los
+#TARGET_QCOM_DISPLAY_VARIANT := caf-msm8996
+#TARGET_QCOM_BLUETOOTH_VARIANT := caf-msm8996
 
 # Bionic
 TARGET_LD_SHIM_LIBS := /system/vendor/lib/libmmcamera_ppeiscore.so|libshims_camera.so:/system/bin/mm-qcamera-daemon|libshims_qcamera-daemon.so
@@ -115,9 +113,9 @@ TARGET_LD_SHIM_LIBS := /system/vendor/lib/libmmcamera_ppeiscore.so|libshims_came
 BOARD_HAS_QCA_BT_ROME := true
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_QCOM := true
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(BOARD_PATH)/bluetooth
+#BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(BOARD_PATH)/bluetooth
 QCOM_BT_USE_BTNV := true
-#QCOM_BT_USE_SMD_TTY := true
+QCOM_BT_USE_SMD_TTY := true
 
 # Camera
 USE_DEVICE_SPECIFIC_CAMERA := true
@@ -133,13 +131,6 @@ BOARD_SUPPRESS_SECURE_ERASE := true
 # Charger
 BOARD_CHARGER_ENABLE_SUSPEND := true
 BOARD_CHARGER_DISABLE_INIT_BLANK := true
-BOARD_CHARGING_CMDLINE_NAME  := "androidboot.mode"
-BOARD_CHARGING_CMDLINE_VALUE := "usb_chg"
-BACKLIGHT_PATH := "/sys/class/leds/lcd-backlight/brightness"
-BLINK_PATH     := "/sys/class/leds/led:rgb_red/blink"
-RED_LED_PATH   := "/sys/class/leds/led:rgb_red/brightness"
-GREEN_LED_PATH := "/sys/class/leds/led:rgb_green/brightness"
-BLUE_LED_PATH  := "/sys/class/leds/led:rgb_blue/brightness"
 # Before enabling lineage charger you have to fix it!
 WITH_LINEAGE_CHARGER := false
 
@@ -151,6 +142,7 @@ TARGET_RECOVERY_DEVICE_MODULES := libinit_leeco_msm8996
 BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864
 BOARD_CACHEIMAGE_PARTITION_SIZE := 268435456
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_SYSTEMIMAGE_PARTITION_TYPE := ext4
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 67108864
 BOARD_FLASH_BLOCK_SIZE := 262144
 
@@ -159,12 +151,12 @@ TARGET_HAS_NO_WIFI_STATS := true
 TARGET_USES_INTERACTION_BOOST := true
 
 # CNE and DPM
-BOARD_USES_QCNE := false
+BOARD_USES_QCNE := true
 
 # Crypto
 TARGET_HW_DISK_ENCRYPTION := true
 TARGET_KEYMASTER_WAIT_FOR_QSEE := true
-TARGET_CRYPTFS_HW_PATH := $(PLATFORM_PATH)/cryptfs_hw
+#TARGET_CRYPTFS_HW_PATH := $(PLATFORM_PATH)/cryptfs_hw
 
 
 # Display
@@ -189,14 +181,15 @@ VSYNC_EVENT_PHASE_OFFSET_NS := 2000000
 
 OVERRIDE_RS_DRIVER:= libRSDriver_adreno.so
 USE_OPENGL_RENDERER := true
-#TARGET_USES_DRM_SDM := true
+
+#WITH_DEXPREOPT := false
 
 # Enable dexpreopt to speed boot time
 ifeq ($(HOST_OS),linux)
   ifneq ($(TARGET_BUILD_VARIANT),eng)
     ifeq ($(WITH_DEXPREOPT),)
       WITH_DEXPREOPT := true
-      #WITH_DEXPREOPT_BOOT_IMG_AND_SYSTEM_SERVER_ONLY := true
+      WITH_DEXPREOPT_BOOT_IMG_AND_SYSTEM_SERVER_ONLY := false
     endif
   endif
 endif
@@ -205,7 +198,7 @@ ANDROID_COMPILE_WITH_BROTLI := false
 PRODUCT_ALWAYS_PREOPT_EXTRACTED_APK := true
 #PRODUCT_USE_PROFILE_FOR_BOOT_IMAGE := true
 #PRODUCT_DEX_PREOPT_BOOT_IMAGE_PROFILE_LOCATION := frameworks/base/config/boot-image-profile.txt
-PRODUCT_SYSTEM_SERVER_COMPILER_FILTER := speed
+PRODUCT_SYSTEM_SERVER_COMPILER_FILTER := everything
 
 # Filesystem
 TARGET_FS_CONFIG_GEN += $(PLATFORM_PATH)/config.fs
@@ -279,7 +272,7 @@ TARGET_RECOVERY_FSTAB := $(PLATFORM_PATH)/rootdir/recovery/fstab.qcom
 endif
 
 # SELinux
-#include device/qcom/sepolicy/sepolicy.mk
-#BOARD_SEPOLICY_DIRS += $(PLATFORM_PATH)/sepolicy
+include device/qcom/sepolicy/sepolicy.mk
+BOARD_SEPOLICY_DIRS += $(PLATFORM_PATH)/sepolicy
 
 -include vendor/leeco/msm8996-common/BoardConfigVendor.mk
