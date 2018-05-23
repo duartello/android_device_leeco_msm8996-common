@@ -23,6 +23,11 @@ import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+import java.util.Date;
+
 import android.util.Log;
 import android.os.SystemProperties;
 import java.io.*;
@@ -34,8 +39,6 @@ import org.omnirom.device.R;
 public class DeviceSettings extends PreferenceActivity implements OnPreferenceChangeListener {
 	private static final boolean DEBUG = false;
 	private static final String TAG = "LePref";
-	private static final String AKT_KEY = "akt";
-	private static final String AKT_SYSTEM_PROPERTY = "persist.AKT.profile";
 
 	private static final String QC_SYSTEM_PROPERTY = "persist.sys.le_fast_chrg_enable";
 	private static final String HAL3_SYSTEM_PROPERTY = "persist.camera.HAL3.enabled";
@@ -43,23 +46,26 @@ public class DeviceSettings extends PreferenceActivity implements OnPreferenceCh
 
 	private static final String GPS_THROTTLE_SYS_SYSTEM_PROPERTY = "persist.ps.gpsthrottle.sys";
 
-    	private static final String SYSTEM_PROPERTY_PM_PROXIMITY_OFF = "persist.pm.proximity_off";
+    private static final String SYSTEM_PROPERTY_PM_PROXIMITY_OFF = "persist.pm.proximity_off";
 
-    	private static final String SYSTEM_PROPERTY_PM_PROXIMITY_ON = "persist.pm.proximity_on";
+    private static final String SYSTEM_PROPERTY_PM_PROXIMITY_ON = "persist.pm.proximity_on";
 
-    	private static final String SYSTEM_PROPERTY_PM_PROXIMITY_BON = "persist.pm.proximity_bon";
+    private static final String SYSTEM_PROPERTY_PM_PROXIMITY_BON = "persist.pm.proximity_bon";
 
-    	private static final String SYSTEM_PROPERTY_PM_PROXIMITY_BOFF = "persist.pm.proximity_boff";
+    private static final String SYSTEM_PROPERTY_PM_PROXIMITY_BOFF = "persist.pm.proximity_boff";
 
-    	private static final String SYSTEM_PROPERTY_PM_ON_AFTER_CALL = "persist.pm.on_after_call";
+    private static final String SYSTEM_PROPERTY_PM_ON_AFTER_CALL = "persist.pm.on_after_call";
 
-    	private static final String SYSTEM_PROPERTY_PM_LOCK_INCALL = "persist.pm.lock_incall";
+    private static final String SYSTEM_PROPERTY_PM_LOCK_INCALL = "persist.pm.lock_incall";
 
-    	private static final String SYSTEM_PROPERTY_PM_DEEP_IDLE = "persist.pm.deep_idle";
+    private static final String SYSTEM_PROPERTY_PM_DEEP_IDLE = "persist.pm.deep_idle";
 
-    	private static final String SYSTEM_PROPERTY_PM_CPUIDLE_DS = "persist.pm.cpuidle_ds";
+    private static final String SYSTEM_PROPERTY_PM_CPUIDLE_DS = "persist.pm.cpuidle_ds";
 
-    	private static final String SYSTEM_PROPERTY_SYS_HALL_SENSOR = "persist.sys.hall_sensor";
+    private static final String SYSTEM_PROPERTY_PM_BG_DISABLE = "persist.pm.bg_disable";
+    private static final String SYSTEM_PROPERTY_PM_BG_SO_DISABLE = "persist.pm.bg_so_disable";
+
+    private static final String SYSTEM_PROPERTY_SYS_HALL_SENSOR = "persist.sys.hall_sensor";
 
     private static final String SYSTEM_PROPERTY_PM_READER_MODE = "persist.pm.reader_mode";
 
@@ -120,6 +126,10 @@ public class DeviceSettings extends PreferenceActivity implements OnPreferenceCh
 	private SwitchPreference mForceEffectsForAllStreams;
 	private SwitchPreference mForceEffectsGlobal;
 
+	private SwitchPreference mBgDisable;
+	private SwitchPreference mBgSoDisable;
+
+    private Preference mSaveLog;
 	
     private Context mContext;
     private SharedPreferences mPreferences;
@@ -286,47 +296,44 @@ public class DeviceSettings extends PreferenceActivity implements OnPreferenceCh
             mForceEffectsGlobal.setOnPreferenceChangeListener(this);
         }
 
-        /*
-        mAKT = (ListPreference) findPreference(AKT_KEY);
-        if( mAKT != null ) {
-            mAKT.setValue(SystemProperties.get(AKT_SYSTEM_PROPERTY, "Stock"));
-            mAKT.setOnPreferenceChangeListener(this);
-        }*/
-        
+        mBgDisable = (SwitchPreference) findPreference(SYSTEM_PROPERTY_PM_BG_DISABLE);
+        if( mBgDisable != null ) {
+            mBgDisable.setChecked(SystemProperties.getBoolean(SYSTEM_PROPERTY_PM_BG_DISABLE, false));
+            mBgDisable.setOnPreferenceChangeListener(this);
+        }
+
+        mBgSoDisable = (SwitchPreference) findPreference(SYSTEM_PROPERTY_PM_BG_SO_DISABLE);
+        if( mBgSoDisable != null ) {
+            mBgSoDisable.setChecked(SystemProperties.getBoolean(SYSTEM_PROPERTY_PM_BG_SO_DISABLE, false));
+            mBgSoDisable.setOnPreferenceChangeListener(this);
+        }
+
+        mSaveLog = findPreference("save_log_key");
+        if( mSaveLog != null ) {
+            mSaveLog.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(final Preference preference) {
+                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.US);
+                    Date now = new Date();
+                    String suffix = formatter.format(now);
+                	SystemProperties.set("vendor.lepref.log_suffix", suffix);
+                	SystemProperties.set("vendor.leprefs.savelog", "1");
+                    return false;
+                }
+            });
+        }
         if (DEBUG) Log.d(TAG, "Initializating done");
+        
     }
 
-    // Set AKT
-    private void setAKT(String value) {
-		try {
-			Process su = Runtime.getRuntime().exec("su");
-			DataOutputStream outputStream = new DataOutputStream(su.getOutputStream());
-			outputStream.writeBytes("mount -o remount,rw /system\n");
-			outputStream.writeBytes("cat /system/etc/lepref/AKT/" + value + " > /system/etc/init.d/99AKT\n");
-			outputStream.writeBytes("chmod 777 /system/etc/init.d/99AKT\n");
-			outputStream.writeBytes("/system/etc/init.d/99AKT\n");
-			outputStream.writeBytes("mount -o remount,ro /system\n");
-			outputStream.flush();
-			outputStream.writeBytes("exit\n");
-			outputStream.flush();
-			su.waitFor();
-		} catch(IOException e){
-			Toast toast = Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT);
-			toast.show();
-		} catch(InterruptedException e){
-			Toast toast = Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT);
-			toast.show();
-		}
-		SystemProperties.set(AKT_SYSTEM_PROPERTY, value);
-    }
-   
+  
     private void setEnable(String key, boolean value) {
-	if(value) {
-		SystemProperties.set(key, "1");
-	} else {
-			SystemProperties.set(key, "0");
-	}
-	if (DEBUG) Log.d(TAG, key + " setting changed");
+	    if(value) {
+		    SystemProperties.set(key, "1");
+    	} else {
+    		SystemProperties.set(key, "0");
+    	}
+    	if (DEBUG) Log.d(TAG, key + " setting changed");
     }
 
     @Override
@@ -350,16 +357,11 @@ public class DeviceSettings extends PreferenceActivity implements OnPreferenceCh
         String strvalue;
         if (DEBUG) Log.d(TAG, "Preference changed.");
 
-	if (AKT_KEY.equals(key)) {
-		strvalue = (String) newValue;
-		if (DEBUG) Log.d(TAG, "AKT setting changed: " + strvalue);
-		setAKT(strvalue);
-		return true;
-	} else {
-		value = (Boolean) newValue;
-		((SwitchPreference)preference).setChecked(value);
-		setEnable(key,value);
-		return true;
-	} 
+    	value = (Boolean) newValue;
+    	((SwitchPreference)preference).setChecked(value);
+    	setEnable(key,value);
+    	return true;
     }
 }
+
+

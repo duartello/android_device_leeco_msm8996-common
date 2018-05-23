@@ -105,11 +105,11 @@
             android:title="@string/deep_idle_title"
             android:summary="@string/deep_idle_summary" />
 
-        <SwitchPreference
+        <!-- SwitchPreference
             android:key="persist.pm.stop_svc"
             android:defaultValue="false"
             android:title="@string/stop_svc_title"
-            android:summary="@string/stop_svc_summary" />
+            android:summary="@string/stop_svc_summary" / -->
 
 
 
@@ -157,29 +157,41 @@
             android:summary="@string/kthreads_summary" />
 
         <SwitchPreference
+            android:key="persist.pm.bg_so_disable"
+            android:defaultValue="false"
+            android:title="@string/bg_so_disable_title"
+            android:summary="@string/bg_so_disable_summary" />
+
+        <SwitchPreference
+            android:key="persist.pm.bg_disable"
+            android:defaultValue="false"
+            android:title="@string/bg_disable_title"
+            android:summary="@string/bg_disable_summary" />
+
+        <!-- SwitchPreference
             android:key="persist.pm.hide_gms"
             android:defaultValue="false"
             android:title="@string/hide_gms_title"
-            android:summary="@string/hide_gms_summary" />
+            android:summary="@string/hide_gms_summary" / -->
 
-        <SwitchPreference
+        <!-- SwitchPreference
             android:key="persist.pm.force_gms"
             android:defaultValue="false"
             android:title="@string/force_gms_title"
-            android:summary="@string/force_gms_summary" />
+            android:summary="@string/force_gms_summary" / -->
 
 
-        <SwitchPreference
+        <!-- SwitchPreference
             android:key="persist.pm.reader_mode"
             android:defaultValue="false"
             android:title="@string/reader_mode_title"
-            android:summary="@string/reader_mode_summary" />
+            android:summary="@string/reader_mode_summary" / -->
 
 
     </PreferenceCategory>
 
 
-    <PreferenceCategory
+    <!-- PreferenceCategory
         android:key="audio_settings"
         android:title="@string/audio_settings_title" >
 
@@ -195,13 +207,13 @@
             android:title="@string/aduio_force_effects_all_title"
             android:summary="@string/aduio_force_effects_all_summary" />
 
-        <!-- SwitchPreference
+        <!SwitchPreference
             android:key="persist.audio.effects_global"
             android:defaultValue="false"
             android:title="@string/aduio_force_effects_global_title"
-            android:summary="@string/aduio_force_effects_global_summary" / -->
+            android:summary="@string/aduio_force_effects_global_summary" />
 
-    </PreferenceCategory>
+    </PreferenceCategory -->
 
     <Preference android:title="@string/prefs_battery_saver_title" 
 		    android:summary="@string/prefs_battery_saver_summary">
@@ -228,5 +240,11 @@
 			android:dialogTitle="@string/akt_dialogTitle" />
 
     </PreferenceCategory -->
+
+    <Preference 
+        android:key="save_log_key" 
+        android:title="Save logs"
+        android:summary="Save logs to /sdcard/rrps">
+    </Preference>
 
 </PreferenceScreen>

@@ -60,6 +60,12 @@
     <string name="krnl_wl_qcom_rx_title">Заблокировать QCOM RX вэйклок</string>
     <string name="krnl_wl_qcom_rx_summary">Заблокировать QCOM RX вэйклок</string>
 
+    <string name="bg_so_disable_title">Запретить ФОН при ВЫКЛ зкране</string>
+    <string name="bg_so_disable_summary">Запретить приложениям работать в фоне при ВЫКЛ экране</string>
+
+    <string name="bg_disable_title">Запретить ФОН</string>
+    <string name="bg_disable_summary">Запретить приложениям работать в фоне</string>
+
     <string name="stop_svc_title">Останавливать сервисы</string>
     <string name="stop_svc_summary">Принудительно останавливать запрещенные сервисы при выключении экрана</string>
 

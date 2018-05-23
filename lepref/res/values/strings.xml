@@ -56,6 +56,13 @@
     <string name="krnl_wl_qcom_rx_title">Block QCOM RX wakelock</string>
     <string name="krnl_wl_qcom_rx_summary">Block QCOM RX wakelock</string>
 
+
+    <string name="bg_so_disable_title">Disable BG while Screen Off</string>
+    <string name="bg_so_disable_summary">Disable apps background execution while screen off</string>
+
+    <string name="bg_disable_title">Disable BG execution</string>
+    <string name="bg_disable_summary">Disable apps background executionby default</string>
+
     <string name="stop_svc_title">Stop services</string>
     <string name="stop_svc_summary">Force stop disabled background services</string>
 
