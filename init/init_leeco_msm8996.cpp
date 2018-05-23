@@ -55,8 +55,8 @@ using android::base::GetProperty;
 using android::base::ReadFileToString;
 using android::init::property_set;
 
-namespace android {
-namespace init {
+//namespace android {
+//namespace init {
 
 
 void property_override(const std::string& name, const std::string& value)
@@ -88,7 +88,7 @@ void init_target_properties()
     int unknownDevice = 1;
 
     if (ReadFileToString(DEVINFO_FILE, &device)) {
-        LOG(INFO) << "DEVINFO: " << device;
+        LOG(ERROR) << "DEVINFO: " << device;
 
         if (!strncmp(device.c_str(), "le_zl0_whole_netcom", 19)) {
             // This is LEX722
@@ -135,6 +135,17 @@ void init_target_properties()
         }
         else if (!strncmp(device.c_str(), "le_x2", 5)) {
             // This is LEX820
+            property_override_dual("ro.product.device", "ro.vendor.product.device", "le_x2");
+            property_override_dual("ro.product.model", "ro.vendor.product.model", "LEX820");
+            // Dual SIM
+            property_set("persist.radio.multisim.config", "dsds");
+            // NFC
+            property_set("persist.nfc.smartcard.config", "SIM1,SIM2,eSE1");
+            unknownDevice = 0;
+        }
+        else if (!strncmp(device.c_str(), "le_x2_whole_netcom", 18)) {
+            // This is LEX820
+            property_override_dual("ro.product.device", "ro.vendor.product.device", "le_x2");
             property_override_dual("ro.product.model", "ro.vendor.product.model", "LEX820");
             // Dual SIM
             property_set("persist.radio.multisim.config", "dsds");
@@ -220,5 +231,5 @@ void vendor_load_properties() {
     init_alarm_boot_properties();
 }
 
-}
-}
+//}
+//}
