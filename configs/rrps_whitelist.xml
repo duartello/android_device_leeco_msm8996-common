@@ -31,7 +31,7 @@
 -->
 
 <config>
-    <!-- These are OmniPS components that need to freely run in the background -->
+    <!-- These are RRPS components that need to freely run in the background -->
     <allow-in-power-save package="com.topjohnwu.magisk" />
 
     <allow-in-power-save package="android.process.media" />
